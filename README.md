@@ -1,4 +1,4 @@
-# Store API
+# WShop API
 
 API REST de gestion de magasins développée en PHP natif dans le cadre d’un test technique.
 
