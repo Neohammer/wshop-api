@@ -1,0 +1,397 @@
+{
+  "info": {
+    "_postman_id": "22b3615f-f405-4056-ae5b-cd80e7e74302",
+    "name": "WShop API - Stores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53334400",
+    "_collection_link": "https://go.postman.co/collection/53334400-22b3615f-f405-4056-ae5b-cd80e7e74302?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Liste des stores",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is a JSON array\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Liste filtrée par ville",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is a JSON array\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});",
+              "",
+              "pm.test(\"Each item has city equal to Paris\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    jsonData.forEach(function(item) {",
+              "        pm.expect(item.city).to.equal('Paris');",
+              "    });",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores?city=Paris",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores"
+          ],
+          "query": [
+            {
+              "key": "city",
+              "value": "Paris"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Liste triée",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is a JSON array\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores?sort=name&order=DESC",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores"
+          ],
+          "query": [
+            {
+              "key": "sort",
+              "value": "name"
+            },
+            {
+              "key": "order",
+              "value": "DESC"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Détail d'un store",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has an id field\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('id');",
+              "});",
+              "",
+              "pm.test(\"Response has a name field\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('name');",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Création d'un store",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response has an id field\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('id');",
+              "});",
+              "",
+              "pm.test(\"Response name equals Nantes Centre\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.equal('Nantes Centre');",
+              "});",
+              "",
+              "pm.test(\"Response city equals Nantes\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.city).to.equal('Nantes');",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"storeId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nantes Centre\",\n  \"manager_name\": \"Laura Petit\",\n  \"phone\": \"0405060708\",\n  \"street\": \"12 rue Crébillon\",\n  \"postal_code\": \"44000\",\n  \"city\": \"Nantes\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Mise à jour d'un store",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response name equals Central Paris Updated\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.equal('Central Paris Updated');",
+              "});",
+              "",
+              "pm.test(\"Response city equals Paris\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.city).to.equal('Paris');",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Central Paris Updated\",\n  \"manager_name\": \"Alice Martin\",\n  \"phone\": \"0102030405\",\n  \"street\": \"10 rue de Rivoli\",\n  \"postal_code\": \"75001\",\n  \"city\": \"Paris\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Suppression d'un store",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 or 204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "stores",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "storeId",
+      "value": ""
+    }
+  ]
+}
