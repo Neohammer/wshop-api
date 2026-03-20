@@ -1,3 +1,0 @@
-[2026-03-19T16:01:15+00:00] ERROR Request parsing error {"message":"Invalid JSON","status":400}
-[2026-03-19T16:01:21+00:00] ERROR HTTP exception {"message":"Missing Authorization header","status":401,"path":"\/stores","method":"POST"}
-[2026-03-20T08:46:00+00:00] ERROR HTTP exception {"message":"Token expired.","status":401,"path":"\/stores\/1","method":"PUT"}
